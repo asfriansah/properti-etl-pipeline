@@ -1,0 +1,26 @@
+services:
+  # 1. Konfigurasi Database SQL (PostgreSQL)
+  postgres_db:
+    image: postgres:15
+    container_name: postgres_lokal
+    environment:
+      POSTGRES_USER: admin_properti
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: db_properti_internal
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # 2. Konfigurasi Database NoSQL (MongoDB) - Diubah ke 4.4 karena PC yg dipakai ga support AVX
+  mongo_db:
+    image: mongo:4.4
+    container_name: mongo_lokal
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin_properti
+      MONGO_INITDB_ROOT_PASSWORD: password123
+    ports:
+      - "27017:27017"
+
+volumes:
+  postgres_data:
